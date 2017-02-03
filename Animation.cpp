@@ -21,6 +21,7 @@ void Animation::update()
 		}
 		else if (looped)
 		{
+			frames.at(currentFrameIndex).reset();
 			currentFrameIndex = 0;
 		}
 	}

@@ -10,7 +10,7 @@ Frame::Frame(int _number, int _duration)
 
 void Frame::update()
 {
-	if (timer <= duration)
+	if (timer < duration)
 	{
 		timer++;
 	}
@@ -23,7 +23,7 @@ int Frame::getNumber()
 
 bool Frame::finished()
 {
-	return (timer > duration);
+	return (timer >= duration);
 }
 
 void Frame::reset()

@@ -57,7 +57,7 @@ int AnimationManager::getCurrentFrameNumber()
 
 	if (hasAnimation(currentAnimation))
 	{
-		animations.at(currentAnimation).getCurrentFrameNumber();
+		res = animations.at(currentAnimation).getCurrentFrameNumber();
 	}
 
 	return res;

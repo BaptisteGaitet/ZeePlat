@@ -3,6 +3,7 @@
 #include "Frame.h"
 #include "Animation.h"
 #include "AnimatedImage.h"
+#include "Hitbox.h"
 
 int main()
 {
@@ -14,6 +15,19 @@ int main()
 	anim.addAnimation("idle", Animation(idle, true ));
 	anim.play("idle");
 
+	Hitbox hba = Hitbox(sf::FloatRect(100, 100, 50, 50), true);
+	Hitbox hbb = Hitbox(sf::FloatRect(100, 110, 50, 50), false);
+
+	sf::RectangleShape rca = sf::RectangleShape();
+	rca.setPosition(hba.getPosition());
+	rca.setSize(hba.getSize());
+	rca.setFillColor(sf::Color(100, 10, 10));
+
+	sf::RectangleShape rcb = sf::RectangleShape();
+	rcb.setPosition(hbb.getPosition());
+	rcb.setSize(hbb.getSize());
+	rcb.setFillColor(sf::Color(10, 100, 10));
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -23,12 +37,40 @@ int main()
 				window.close();
 		}
 
+		// TEST //
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			hba.setPosition(sf::Vector2f(hba.getPosition().x, hba.getPosition().y - 1));
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			hba.setPosition(sf::Vector2f(hba.getPosition().x, hba.getPosition().y + 1));
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			hba.setPosition(sf::Vector2f(hba.getPosition().x - 1, hba.getPosition().y));
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			hba.setPosition(sf::Vector2f(hba.getPosition().x + 1, hba.getPosition().y));
+		}
+		rca.setPosition(hba.getPosition());
+		hba.resolveCollision(&hbb);
+		rcb.setPosition(hbb.getPosition());
+
+		//////////
+
+
 		window.clear();
 
 		img.draw(&window);
 
 		anim.update();
 		anim.draw(&window);
+
+		window.draw(rca);
+		window.draw(rcb);
 
 		window.display();
 	}

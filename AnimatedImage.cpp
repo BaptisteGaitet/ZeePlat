@@ -1,5 +1,12 @@
 #include "AnimatedImage.h"
 
+AnimatedImage::AnimatedImage() : Image(sf::Vector2f(0, 0), sf::Vector2f(0, 0), "")
+{
+	rows = 0;
+	columns = 0;
+	frameSize = sf::Vector2i(0, 0);
+	animMngr = AnimationManager();
+}
 
 AnimatedImage::AnimatedImage(sf::Vector2f _position, sf::Vector2f _size, std::string _path, int _rows, int _columns) : Image(_position, _size, _path)
 {

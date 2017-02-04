@@ -14,6 +14,7 @@ private:
 	int columns;
 	sf::Vector2i frameSize;
 public:
+	AnimatedImage();
 	AnimatedImage(sf::Vector2f _position, sf::Vector2f _size, std::string _path, int rows, int columns);
 
 	void update();

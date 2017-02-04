@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "AnimatedImage.h"
 #include "Hitbox.h"
+#include "Body.h"
 
 int main()
 {
@@ -15,8 +16,8 @@ int main()
 	anim.addAnimation("idle", Animation(idle, true ));
 	anim.play("idle");
 
-	Hitbox hba = Hitbox(sf::FloatRect(100, 100, 50, 50), true);
-	Hitbox hbb = Hitbox(sf::FloatRect(100, 110, 50, 50), false);
+	Body hba = Body(sf::FloatRect(100, 0, 50, 50), 4, 2);
+	Hitbox hbb = Hitbox(sf::FloatRect(100, 100, 200, 50), false);
 
 	sf::RectangleShape rca = sf::RectangleShape();
 	rca.setPosition(hba.getPosition());
@@ -38,23 +39,27 @@ int main()
 		}
 
 		// TEST //
-
+		sf::Vector2f velocity = sf::Vector2f(0, 0);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			hba.setPosition(sf::Vector2f(hba.getPosition().x, hba.getPosition().y - 1));
+			velocity.y -= 4;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			hba.setPosition(sf::Vector2f(hba.getPosition().x, hba.getPosition().y + 1));
+			velocity.y += 2;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			hba.setPosition(sf::Vector2f(hba.getPosition().x - 1, hba.getPosition().y));
+			velocity.x -= 2;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			hba.setPosition(sf::Vector2f(hba.getPosition().x + 1, hba.getPosition().y));
+			velocity.x += 2;
 		}
+		hba.setVelocity(velocity);
+		
+		hba.update();
+
 		rca.setPosition(hba.getPosition());
 		hba.resolveCollision(&hbb);
 		rcb.setPosition(hbb.getPosition());

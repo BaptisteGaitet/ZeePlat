@@ -31,11 +31,17 @@ void TileMap::separate(Body* _body)
 	{
 		for (int j = 0; j < tiles.size(); j++)
 		{
-			sf::Vector2f overlap = tiles.at(j).getHitbox()->overlap(_body->getHitboxes().at(i));
+			if (VectorMath::getNorm(VectorMath::vectorFromTo(_body->getPosition(), tiles.at(j).getHitbox()->getPosition())) < 64)
+			{
+				if (tiles.at(j).isSolid())
+				{
+					sf::Vector2f overlap = tiles.at(j).getHitbox()->overlap(_body->getHitboxes().at(i));
 
-			tiles.at(j).getHitbox()->separate(_body->getHitboxes().at(i), overlap);
+					tiles.at(j).getHitbox()->separate(_body->getHitboxes().at(i), overlap);
 
-			_body->snapAllToHitbox(i);
+					_body->snapAllToHitbox(i);
+				}
+			}
 		}
 	}
 }

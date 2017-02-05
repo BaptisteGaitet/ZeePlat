@@ -5,29 +5,58 @@
 #include "AnimatedImage.h"
 #include "Hitbox.h"
 #include "Body.h"
+#include "TileMap.h"
+#include "Player.h"
 
 int main()
 {
+	Player player = Player(sf::Vector2f(64,64));
+
+	int indexes[20 * 16] = {
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+		4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 3, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 3, 3, 6, 6, 3, 3, 6, 6, 3, 3, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3, 4,
+		4, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 4,
+		4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
+	};
+
+	bool hitboxes[20 * 16] = {
+		true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+		true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, false, false, false, true, true, false, false, true, true, false, false, true, true, false, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true,
+		true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, true, true,
+		true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+		true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+	};
+
 	sf::RenderWindow window(sf::VideoMode(800, 600), "ZeePlat");
 	window.setFramerateLimit(60);
-	Image img = Image(sf::Vector2f(10, 10), sf::Vector2f(100, 100), "caca.png");
-	AnimatedImage anim = AnimatedImage(sf::Vector2f(400,300), sf::Vector2f(200,200), "cacanim.png", 2, 3);
-	std::vector<Frame> idle = { Frame(0, 10), Frame(1, 10), Frame(2, 10), Frame(3, 10), Frame(4, 10), Frame(5, 10) };
-	anim.addAnimation("idle", Animation(idle, true ));
-	anim.play("idle");
 
-	Body hba = Body(sf::FloatRect(100, 0, 50, 50), 4, 2);
-	Hitbox hbb = Hitbox(sf::FloatRect(100, 100, 200, 50), false);
+	TileMap map = TileMap(sf::FloatRect(0, 0, 20*32, 16*32), sf::Vector2i(20, 16), sf::Vector2i(8, 8), "test8x8.png", indexes, hitboxes);
 
-	sf::RectangleShape rca = sf::RectangleShape();
-	rca.setPosition(hba.getPosition());
-	rca.setSize(hba.getSize());
-	rca.setFillColor(sf::Color(100, 10, 10));
-
-	sf::RectangleShape rcb = sf::RectangleShape();
-	rcb.setPosition(hbb.getPosition());
-	rcb.setSize(hbb.getSize());
-	rcb.setFillColor(sf::Color(10, 100, 10));
+	sf::RectangleShape hb = sf::RectangleShape(sf::Vector2f(16, 16));
+	hb.setFillColor(sf::Color(100, 200, 100, 128));
 
 	while (window.isOpen())
 	{
@@ -38,44 +67,19 @@ int main()
 				window.close();
 		}
 
-		// TEST //
-		sf::Vector2f velocity = sf::Vector2f(0, 0);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			velocity.y -= 4;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			velocity.y += 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			velocity.x -= 2;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			velocity.x += 2;
-		}
-		hba.setVelocity(velocity);
+		player.update();
 		
-		hba.update();
+		map.separate(player.getBody());
 
-		rca.setPosition(hba.getPosition());
-		hba.resolveCollision(&hbb);
-		rcb.setPosition(hbb.getPosition());
-
-		//////////
-
+		//hb.setPosition(player.getHitbox()->getPosition());
 
 		window.clear();
 
-		img.draw(&window);
+		map.draw(&window);
 
-		anim.update();
-		anim.draw(&window);
+		player.draw(&window);
 
-		window.draw(rca);
-		window.draw(rcb);
+		//window.draw(hb);
 
 		window.display();
 	}

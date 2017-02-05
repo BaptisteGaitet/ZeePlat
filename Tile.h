@@ -15,6 +15,7 @@ public:
 
 	void draw(sf::RenderWindow* window);
 	Hitbox* getHitbox();
+	bool isSolid();
 
 	~Tile();
 };

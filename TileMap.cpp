@@ -2,6 +2,7 @@
 
 TileMap::TileMap(sf::FloatRect _bounds, sf::Vector2i _size, sf::Vector2i _tileSize, std::string _path, int* _indexes, bool* _hitboxes)
 {
+	solid = false;
 	size = _size;
 	sf::Vector2f renderTileSize = sf::Vector2f(_bounds.width / _size.x, _bounds.height / _size.y);
 	for (int i = 0; i < _size.x; i++)
@@ -11,6 +12,10 @@ TileMap::TileMap(sf::FloatRect _bounds, sf::Vector2i _size, sf::Vector2i _tileSi
 			int tileIndex = _indexes[j * _size.x + i];
 			sf::Vector2f tilePosition = sf::Vector2f(i * renderTileSize.x + _bounds.left, j * renderTileSize.y + _bounds.top);
 
+			if (_hitboxes[j * _size.x + i])
+			{
+				solid = true;
+			}
 			Tile tile = Tile(tileIndex, tilePosition, renderTileSize, _tileSize, _path, _hitboxes[j * _size.x + i]);
 			tiles.push_back(tile);
 		}
@@ -44,6 +49,11 @@ void TileMap::separate(Body* _body)
 			}
 		}
 	}
+}
+
+bool TileMap::isSolid()
+{
+	return solid;
 }
 
 TileMap::~TileMap()

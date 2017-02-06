@@ -61,6 +61,11 @@ void Image::setPosition(sf::Vector2f _position)
 	shape.setPosition(_position);
 }
 
+sf::Vector2f Image::getCenter()
+{
+	return sf::Vector2f(shape.getPosition().x + (shape.getSize().x / 2), shape.getPosition().y + (shape.getSize().y / 2));
+}
+
 Image::~Image()
 {
 }

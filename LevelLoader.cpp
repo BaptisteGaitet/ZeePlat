@@ -41,9 +41,9 @@ Level LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 				// set mapBounds
 				mapBounds.left = 0;
 				mapBounds.top = 0;
-				mapBounds.width = tabSize.x * tileSize.x * 4;
+				mapBounds.width = tabSize.x * tileSize.x;
 				std::cout << "mapBounds.width = " << mapBounds.width << "\n";
-				mapBounds.height = tabSize.y * tileSize.y * 4;
+				mapBounds.height = tabSize.y * tileSize.y;
 				std::cout << "mapBounds.height = " << mapBounds.height << "\n";
 			}
 			else if (line == "[layer]")

@@ -10,6 +10,7 @@ private:
 	bool onGround;
 	bool canJump;
 public:
+	Player();
 	Player(sf::Vector2f _position);
 
 	void update();

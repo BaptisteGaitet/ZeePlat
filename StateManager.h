@@ -5,7 +5,6 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 #include "State.h"
-#include "AudioManager.h"
 
 /*
 This class holds several states, updating and drawing the current one and handling the switch between them.

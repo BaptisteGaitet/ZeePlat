@@ -5,7 +5,6 @@ StateManager::StateManager()
 	// Initialize current state to an empty string
 	currentStateId = "";
 	states = std::map<std::string, State*>();
-	AudioManager::getInstance().addSound("snd/page.ogg");
 }
 
 // Updates current state if valid
@@ -25,7 +24,6 @@ void StateManager::update()
 
 				states.at(currentStateId)->setNextStateId("");
 				currentStateId = next;
-				AudioManager::getInstance().playSound("snd/page.ogg");
 			}
 		}
 	}

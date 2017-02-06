@@ -19,6 +19,7 @@ public:
 	virtual void update() = 0;
 	void draw(sf::RenderWindow* window);
 	Body* getBody();
+	sf::Vector2f getCenter();
 
 	~Entity();
 };

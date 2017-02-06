@@ -29,6 +29,11 @@ Body* Entity::getBody()
 	return &body;
 }
 
+sf::Vector2f Entity::getCenter()
+{
+	return animatedImage.getCenter();
+}
+
 Entity::~Entity()
 {
 }

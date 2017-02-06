@@ -7,10 +7,10 @@ Level::Level(TileMap* _backLayer, TileMap* _mainLayer, TileMap* _frontLayer, std
 	mainLayer = _mainLayer;
 	frontLayer = _frontLayer;
 
-	/*for (int i = 0; i < _entities.size(); i++)
+	for (int i = 0; i < _entities.size(); i++)
 	{
 		entities.push_back(_entities.at(i));
-	}*/
+	}
 
 	background.setFillColor(_backgroundColor);
 }

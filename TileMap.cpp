@@ -10,14 +10,17 @@ TileMap::TileMap(sf::FloatRect _bounds, sf::Vector2i _size, sf::Vector2i _tileSi
 		for (int j = 0; j < _size.y; j++)
 		{
 			int tileIndex = _indexes[j * _size.x + i];
-			sf::Vector2f tilePosition = sf::Vector2f(i * renderTileSize.x + _bounds.left, j * renderTileSize.y + _bounds.top);
-
-			if (_hitboxes[j * _size.x + i])
+			if (tileIndex != 0)
 			{
-				solid = true;
+				sf::Vector2f tilePosition = sf::Vector2f(i * renderTileSize.x + _bounds.left, j * renderTileSize.y + _bounds.top);
+
+				if (_hitboxes[j * _size.x + i])
+				{
+					solid = true;
+				}
+				Tile tile = Tile(tileIndex, tilePosition, renderTileSize, _tileSize, _path, _hitboxes[j * _size.x + i]);
+				tiles.push_back(tile);
 			}
-			Tile tile = Tile(tileIndex, tilePosition, renderTileSize, _tileSize, _path, _hitboxes[j * _size.x + i]);
-			tiles.push_back(tile);
 		}
 	}
 }

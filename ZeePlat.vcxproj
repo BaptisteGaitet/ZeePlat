@@ -32,6 +32,7 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="VectorMath.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedImage.h" />
@@ -54,6 +55,7 @@
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TitleState.h" />
     <ClInclude Include="VectorMath.h" />
+    <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{08565B68-4A52-42BA-9D27-CA55A389555E}</ProjectGuid>

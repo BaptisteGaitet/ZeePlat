@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(32, 32), "char.png", 4, 4)
+Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(8, 8), "char.png", 4, 4)
 {
 	facingLeft = false;
 	onGround = false;
@@ -8,8 +8,8 @@ Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(32, 32), "char.png", 
 
 	body.setPosition(sf::Vector2f(0,0));
 
-	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 16, 32), sf::Vector2f(8, 0), true, false, true));
-	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 32, 16), sf::Vector2f(0, 8), true, true, false));
+	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 4, 8), sf::Vector2f(2, 0), true, false, true));
+	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 8, 4), sf::Vector2f(0, 2), true, true, false));
 
 	std::vector<Frame> runRight = {
 		Frame(0, 8),
@@ -54,7 +54,7 @@ Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(32, 32), "char.png", 
 	animatedImage.play("idleLeft");
 }
 
-Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(32, 32), "char.png", 4,4)
+Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(8, 8), "char.png", 4,4)
 {
 	facingLeft = false;
 	onGround = false;
@@ -62,8 +62,8 @@ Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(32, 32),
 
 	body.setPosition(_position);
 
-	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 16, 32), sf::Vector2f(8,0), true, false, true));
-	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 32, 16), sf::Vector2f(0, 8), true, true, false));
+	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 4, 8), sf::Vector2f(2,0), true, false, true));
+	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 8, 4), sf::Vector2f(0, 2), true, true, false));
 
 	std::vector<Frame> runRight = {
 		Frame(0, 8),
@@ -118,7 +118,7 @@ void Player::update()
 	{ 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)
 		{
-			acceleration.y -= 8.0f;
+			acceleration.y -= 2.0f;
 			canJump = false;
 		}
 	}
@@ -128,7 +128,7 @@ void Player::update()
 	}
 
 	//Gravity
-		acceleration.y += 0.4f;
+		acceleration.y += 0.1f;
 	if (!body.getHitboxes().at(0)->getContacts().bottom)
 	{
 	}
@@ -139,29 +139,29 @@ void Player::update()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		acceleration.x -= 0.4f;
+		acceleration.x -= 0.1f;
 		facingLeft = true;
 	}else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		acceleration.x += 0.4f;
+		acceleration.x += 0.1f;
 		facingLeft = false;
 	}
 
-	if (body.getVelocity().x > 8)
+	if (body.getVelocity().x > 2)
 	{
-		body.setVelocity(sf::Vector2f(8, body.getVelocity().y));
+		body.setVelocity(sf::Vector2f(2, body.getVelocity().y));
 	}
-	if (body.getVelocity().x < -8)
+	if (body.getVelocity().x < -2)
 	{
-		body.setVelocity(sf::Vector2f(-8, body.getVelocity().y));
+		body.setVelocity(sf::Vector2f(-2, body.getVelocity().y));
 	}
-	if (body.getVelocity().y > 16)
+	if (body.getVelocity().y > 4)
 	{
-		body.setVelocity(sf::Vector2f(body.getVelocity().x, 16));
+		body.setVelocity(sf::Vector2f(body.getVelocity().x, 4));
 	}
-	if (body.getVelocity().y < -16)
+	if (body.getVelocity().y < -4)
 	{
-		body.setVelocity(sf::Vector2f(body.getVelocity().x, -16));
+		body.setVelocity(sf::Vector2f(body.getVelocity().x, -4));
 	}
 
 	body.setAcceleration(acceleration);

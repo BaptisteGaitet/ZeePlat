@@ -12,6 +12,8 @@ void GameState::update()
 {
 	player.update();
 	levels.at(currentLevel).separate(player.getBody());
+
+	WindowManager::getInstance().setTarget(player.getCenter());
 }
 
 void GameState::draw(sf::RenderWindow* window)

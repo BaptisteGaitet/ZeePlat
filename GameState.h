@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "LevelLoader.h"
+#include "WindowManager.h"
 
 class GameState :
 	public State

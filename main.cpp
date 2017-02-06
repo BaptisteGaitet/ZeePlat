@@ -8,12 +8,24 @@
 #include "Level.h"
 #include "LevelLoader.h"
 #include "Player.h"
+#include "StateManager.h"
+#include "State.h"
+#include "GameState.h"
+#include "TitleState.h"
 
 int main()
 {
-	Player player = Player(sf::Vector2f(100,100));
+	//Player player = Player(sf::Vector2f(100,100));
 
-	Level lvl = LevelLoader::loadLevel("test.txt", "test8x8.png");
+	//Level lvl = LevelLoader::loadLevel("test.txt", "test8x8.png");
+
+	StateManager stateMngr = StateManager();
+	State* gameState = new GameState();
+	State* titleState = new TitleState();
+
+	stateMngr.addState(gameState);
+	stateMngr.addState(titleState);
+	stateMngr.setCurrentStateId("game");
 
 	/*int indexes[20 * 16] = {
 		3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3,
@@ -58,8 +70,8 @@ int main()
 
 	//TileMap map = TileMap(sf::FloatRect(0, 0, 20*32, 16*32), sf::Vector2i(20, 16), sf::Vector2i(8, 8), "test8x8.png", indexes, hitboxes);
 
-	sf::RectangleShape hb = sf::RectangleShape(sf::Vector2f(16, 16));
-	hb.setFillColor(sf::Color(100, 200, 100, 128));
+	//sf::RectangleShape hb = sf::RectangleShape(sf::Vector2f(16, 16));
+	//hb.setFillColor(sf::Color(100, 200, 100, 128));
 
 	while (window.isOpen())
 	{
@@ -70,21 +82,25 @@ int main()
 				window.close();
 		}
 
-		player.update();
+		stateMngr.update();
+
+		//player.update();
 		
-		lvl.separate(player.getBody());
+		//lvl.separate(player.getBody());
 
 		//hb.setPosition(player.getHitbox()->getPosition());
 
 		window.clear();
 
 		//map.draw(&window);
-		lvl.drawBackground(&window);
+		//lvl.drawBackground(&window);
 
-		player.draw(&window);
+		//player.draw(&window);
 
-		lvl.drawForeground(&window);
+		//lvl.drawForeground(&window);
 		//window.draw(hb);
+
+		stateMngr.draw(&window);
 
 		window.display();
 	}

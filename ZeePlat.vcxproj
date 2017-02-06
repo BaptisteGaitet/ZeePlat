@@ -21,6 +21,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="State.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateManager.h" />

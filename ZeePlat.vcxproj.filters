@@ -111,6 +111,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

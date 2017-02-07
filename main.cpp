@@ -13,7 +13,7 @@ int main()
 
 	stateMngr.addState(gameState);
 	stateMngr.addState(titleState);
-	stateMngr.setCurrentStateId("game");
+	stateMngr.setCurrentStateId("title");
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "ZeePlat");
 	window.setFramerateLimit(60);
@@ -27,7 +27,7 @@ int main()
 			{
 				WindowManager::getInstance().setScreenSize(sf::Vector2f(event.size.width, event.size.height));
 			}
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed || stateMngr.getExit())
 				window.close();
 		}
 

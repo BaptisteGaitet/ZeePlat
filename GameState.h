@@ -12,7 +12,7 @@ class GameState :
 {
 private:
 	Player player;
-	std::map<std::string, Level> levels;
+	std::map<std::string, Level*> levels;
 	std::string currentLevel;
 public:
 	GameState();

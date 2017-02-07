@@ -32,6 +32,8 @@ void WindowManager::setScreenSize(sf::Vector2f _screensize)
 void WindowManager::setCenter(sf::Vector2f _center)
 {
 	center = _center;
+	target = _center;
+	view.setCenter(_center);
 }
 
 void WindowManager::setTarget(sf::Vector2f _target)

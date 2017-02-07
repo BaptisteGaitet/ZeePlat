@@ -1,6 +1,65 @@
 #include "LevelLoader.h"
 
-Level LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
+std::map<std::string, Level*> LevelLoader::loadLevels()
+{
+	std::map<std::string, Level*> res;
+	std::ifstream file;
+	std::string line;
+	file.open(LEVELS_FILE);
+
+	if (file.is_open())
+	{
+		std::cout << LEVELS_FILE << " opened\n";
+		while (std::getline(file, line))
+		{
+			if (line.size() > 0)
+			{
+				if (line.at(0) == 'l')
+				{
+					std::vector<std::string> parsedLevel = parseLine(line, '/');
+					res.insert(std::pair<std::string, Level*>(parsedLevel.at(1), loadLevel(parsedLevel.at(1) + ".txt", parsedLevel.at(2) + ".png")));
+					std::cout << "Added " << parsedLevel.at(1) << "\n";
+					
+					std::vector<WarpZone> warps;
+					std::getline(file, line);
+					while (line.size() > 0 && !file.fail())
+					{
+						std::vector<std::string> parsedWarp = parseLine(line, '/');
+						sf::FloatRect rect = sf::FloatRect(
+							atoi(parsedWarp.at(1).c_str()),
+							atoi(parsedWarp.at(2).c_str()),
+							atoi(parsedWarp.at(3).c_str()),
+							atoi(parsedWarp.at(4).c_str())
+						);
+						std::cout << rect.left << ", " << rect.top << ", " << rect.width << ", " << rect.height << "\n";
+						std::string destinationId = parsedWarp.at(5);
+						std::cout << destinationId << "\n";
+						sf::Vector2f destinationPosition = sf::Vector2f(
+							atoi(parsedWarp.at(6).c_str()),
+							atoi(parsedWarp.at(7).c_str())
+						);
+						std::cout << destinationPosition.x << ", " << destinationPosition.y << "\n";
+						warps.push_back(WarpZone(rect, destinationId, destinationPosition));
+
+						std::getline(file, line);
+						std::cout << "line: " << line << "\n";
+					}
+					res.at(parsedLevel.at(1))->setWarpZones(warps);
+				}
+			}
+		}
+	}
+	else
+	{
+		std::cout << "LevelLoader: Can't open file: " << LEVELS_FILE << "\n";
+	}
+
+	file.close();
+
+	return res;
+}
+
+Level* LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 {
 	std::ifstream file;
 	std::string line;
@@ -24,27 +83,21 @@ Level LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 				// read Width
 				std::getline(file, line);
 				tabSize.x = atoi(getStringAfterChar(line, '=').c_str());
-				std::cout << "tabSize.x = " << tabSize.x << "\n";
 				// read Height
 				std::getline(file, line);
 				tabSize.y = atoi(getStringAfterChar(line, '=').c_str());
-				std::cout << "tabSize.y = " << tabSize.y << "\n";
 				// read tileWidth
 				std::getline(file, line);
 				tileSize.x = atoi(getStringAfterChar(line, '=').c_str());
-				std::cout << "tileSize.x = " << tileSize.x << "\n";
 				// read tileHeight
 				std::getline(file, line);
 				tileSize.y = atoi(getStringAfterChar(line, '=').c_str());
-				std::cout << "tileSize.x = " << tileSize.y << "\n";
 
 				// set mapBounds
 				mapBounds.left = 0;
 				mapBounds.top = 0;
 				mapBounds.width = tabSize.x * tileSize.x;
-				std::cout << "mapBounds.width = " << mapBounds.width << "\n";
 				mapBounds.height = tabSize.y * tileSize.y;
-				std::cout << "mapBounds.height = " << mapBounds.height << "\n";
 			}
 			else if (line == "[layer]")
 			{
@@ -81,7 +134,6 @@ Level LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 								if (line.at(j) != '0')
 								{
 									tabTiles[i * tabSize.x + valueCount] = atoi(&line.at(j))-1;
-									//std::cout << atoi(&line.at(j));
 									tabHitboxes[i * tabSize.x + valueCount] = true;
 								}
 								else
@@ -154,7 +206,7 @@ Level LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 
 	file.close();
 
-	return Level(backLayer, mainLayer, frontLayer, std::vector<Entity*>(), sf::Color(10, 10, 10));
+	return new Level(backLayer, mainLayer, frontLayer, std::vector<Entity*>(), sf::Color(10, 10, 10));
 }
 
 std::string LevelLoader::getStringAfterChar(std::string _line, char _char)
@@ -173,6 +225,29 @@ std::string LevelLoader::getStringAfterChar(std::string _line, char _char)
 			after = true;
 		}
 	}
+
+	return res;
+}
+
+std::vector<std::string> LevelLoader::parseLine(std::string _line, char _char)
+{
+	std::vector<std::string> res;
+	std::string current = "";
+
+	std::cout << _line << "\n";
+	for (int i = 0; i < _line.size(); i++)
+	{
+		if (_line.at(i) != _char)
+		{
+			current += _line.at(i);
+		}
+		else
+		{
+			res.push_back(current);
+			current = "";
+		}
+	}
+	res.push_back(current);
 
 	return res;
 }

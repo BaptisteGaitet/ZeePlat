@@ -80,6 +80,18 @@ void StateManager::setCurrentStateId(std::string _id)
 	}
 }
 
+bool StateManager::getExit()
+{
+	bool res = false;
+
+	if (hasState(currentStateId))
+	{
+		res = states.at(currentStateId)->getExit();
+	}
+
+	return res;
+}
+
 StateManager::~StateManager()
 {
 }

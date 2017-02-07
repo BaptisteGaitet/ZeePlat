@@ -12,6 +12,7 @@ class State
 private:
 	std::string id;
 	std::string nextStateId;
+	bool exit;
 
 public:
 	State(std::string _id);
@@ -20,6 +21,8 @@ public:
 	void setNextStateId(std::string _nextStateId);
 	void resetNextStateId();
 	std::string getId();
+	bool getExit();
+	void setExit(bool _exit);
 
 	virtual void update() = 0;
 	virtual void draw(sf::RenderWindow* window) = 0;

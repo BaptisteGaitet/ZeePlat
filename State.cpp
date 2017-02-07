@@ -3,6 +3,7 @@
 // Creates the state with a corresponding ID
 State::State(std::string _id)
 {
+	exit = false;
 	id = _id;
 	nextStateId = "";
 }
@@ -28,6 +29,16 @@ void State::resetNextStateId()
 std::string State::getId()
 {
 	return id;
+}
+
+void State::setExit(bool _exit)
+{
+	exit = _exit;
+}
+
+bool State::getExit()
+{
+	return exit;
 }
 
 State::~State()

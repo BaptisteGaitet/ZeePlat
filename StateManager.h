@@ -24,6 +24,7 @@ public:
 	void draw(sf::RenderWindow* window);
 	void addState(State* _state);
 	void setCurrentStateId(std::string _id);
+	bool getExit();
 
 	~StateManager();
 };

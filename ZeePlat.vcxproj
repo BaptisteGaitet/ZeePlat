@@ -32,6 +32,7 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="VectorMath.cpp" />
+    <ClCompile Include="WarpZone.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +56,7 @@
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TitleState.h" />
     <ClInclude Include="VectorMath.h" />
+    <ClInclude Include="WarpZone.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

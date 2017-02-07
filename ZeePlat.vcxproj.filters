@@ -120,8 +120,11 @@
     <ClCompile Include="TitleState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="WarpZone.cpp">
+      <Filter>Source Files\Levels</Filter>
+    </ClCompile>
     <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Statics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +189,10 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Statics</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpZone.h">
+      <Filter>Header Files\Levels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

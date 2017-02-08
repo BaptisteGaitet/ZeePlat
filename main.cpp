@@ -64,7 +64,7 @@ int main()
 
 		WindowManager::getInstance().update();
 
-		window.clear();
+		window.clear(sf::Color(11,11,11));
 
 		stateMngr.draw(&window);
 

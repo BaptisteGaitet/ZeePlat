@@ -7,6 +7,9 @@
 
 int main()
 {
+	bool fullscreen = false;
+	std::vector<sf::VideoMode> videoModes = sf::VideoMode::getFullscreenModes();
+
 	StateManager stateMngr = StateManager();
 	State* gameState = new GameState();
 	State* titleState = new TitleState();
@@ -16,7 +19,9 @@ int main()
 	stateMngr.setCurrentStateId("title");
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "ZeePlat");
+	window.setMouseCursorVisible(false);
 	window.setFramerateLimit(60);
+	window.setVerticalSyncEnabled(true);
 
 	while (window.isOpen())
 	{
@@ -31,13 +36,26 @@ int main()
 				window.close();
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
+		if (WindowManager::getInstance().requestFullscreenSwitch())
 		{
-			WindowManager::getInstance().increaseZoom();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
-		{
-			WindowManager::getInstance().decreaseZoom();
+			if (fullscreen)
+			{
+				WindowManager::getInstance().setScreenSize(sf::Vector2f(800, 600));
+				window.create(sf::VideoMode(800, 600), "ZeePlat");
+				window.setMouseCursorVisible(false);
+				window.setFramerateLimit(60);
+				window.setVerticalSyncEnabled(true);
+				fullscreen = false;
+			}
+			else
+			{
+				WindowManager::getInstance().setScreenSize(sf::Vector2f(videoModes.at(0).width, videoModes.at(0).height));
+				window.create(videoModes.at(0), "ZeePlat", sf::Style::Fullscreen);
+				window.setMouseCursorVisible(false);
+				window.setFramerateLimit(60);
+				window.setVerticalSyncEnabled(true);
+				fullscreen = true;
+			}
 		}
 
 		stateMngr.update();

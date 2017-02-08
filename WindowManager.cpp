@@ -2,6 +2,7 @@
 
 WindowManager::WindowManager()
 {
+	switchFullscreen = false;
 	zoom = 4;
 	screenSize = sf::Vector2f(800, 600);
 
@@ -43,17 +44,33 @@ void WindowManager::setTarget(sf::Vector2f _target)
 
 void WindowManager::increaseZoom()
 {
-	zoom++;
+	if (zoom < MAX_ZOOM)
+		zoom++;
 }
 
 void WindowManager::decreaseZoom()
 {
-	zoom--;
+	if (zoom > MIN_ZOOM)
+		zoom--;
 }
 
 sf::View WindowManager::getView()
 {
 	return view;
+}
+
+bool WindowManager::requestFullscreenSwitch()
+{
+	bool res = switchFullscreen;
+
+	switchFullscreen = false;
+
+	return res;
+}
+
+void WindowManager::setFullscreenRequest(bool _val)
+{
+	switchFullscreen = _val;
 }
 
 WindowManager::~WindowManager()

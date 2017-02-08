@@ -9,7 +9,7 @@ std::map<std::string, Level*> LevelLoader::loadLevels()
 
 	if (file.is_open())
 	{
-		std::cout << LEVELS_FILE << " opened\n";
+		//std::cout << LEVELS_FILE << " opened\n";
 		while (std::getline(file, line))
 		{
 			if (line.size() > 0)
@@ -18,7 +18,7 @@ std::map<std::string, Level*> LevelLoader::loadLevels()
 				{
 					std::vector<std::string> parsedLevel = parseLine(line, '/');
 					res.insert(std::pair<std::string, Level*>(parsedLevel.at(1), loadLevel(parsedLevel.at(1) + ".txt", parsedLevel.at(2) + ".png")));
-					std::cout << "Added " << parsedLevel.at(1) << "\n";
+					//std::cout << "Added " << parsedLevel.at(1) << "\n";
 					
 					std::vector<WarpZone> warps;
 					std::getline(file, line);
@@ -31,18 +31,18 @@ std::map<std::string, Level*> LevelLoader::loadLevels()
 							atoi(parsedWarp.at(3).c_str()),
 							atoi(parsedWarp.at(4).c_str())
 						);
-						std::cout << rect.left << ", " << rect.top << ", " << rect.width << ", " << rect.height << "\n";
+						//std::cout << rect.left << ", " << rect.top << ", " << rect.width << ", " << rect.height << "\n";
 						std::string destinationId = parsedWarp.at(5);
-						std::cout << destinationId << "\n";
+						//std::cout << destinationId << "\n";
 						sf::Vector2f destinationPosition = sf::Vector2f(
 							atoi(parsedWarp.at(6).c_str()),
 							atoi(parsedWarp.at(7).c_str())
 						);
-						std::cout << destinationPosition.x << ", " << destinationPosition.y << "\n";
+						//std::cout << destinationPosition.x << ", " << destinationPosition.y << "\n";
 						warps.push_back(WarpZone(rect, destinationId, destinationPosition));
 
 						std::getline(file, line);
-						std::cout << "line: " << line << "\n";
+						//std::cout << "line: " << line << "\n";
 					}
 					res.at(parsedLevel.at(1))->setWarpZones(warps);
 				}

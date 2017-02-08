@@ -30,7 +30,7 @@ TitleState::TitleState() : State("title")
 	on.addAnimation("selected", Animation(selected, false));
 	on.play("idle");
 
-	off = AnimatedImage(sf::Vector2f(30, 0), sf::Vector2f(10, 10), "txtOff.png", 1, 2);
+	off = AnimatedImage(sf::Vector2f(30, 0), sf::Vector2f(15, 10), "txtOff.png", 1, 2);
 	off.addAnimation("idle", Animation(idle, false));
 	off.addAnimation("selected", Animation(selected, false));
 	off.play("idle");

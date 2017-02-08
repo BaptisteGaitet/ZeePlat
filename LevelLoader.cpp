@@ -126,21 +126,19 @@ Level* LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 					for (int i = 0; i < tabSize.y; i++)
 					{
 						std::getline(file, line);
-						int valueCount = 0;
-						for (int j = 0; j < line.length(); j++)
+						std::vector<std::string> values = parseLine(line, ',');
+						for (int j = 0; j < tabSize.x; j++)
 						{
-							if (line.at(j) != ',')
+							if (atoi(values.at(j).c_str()) != 0)
 							{
-								if (line.at(j) != '0')
-								{
-									tabTiles[i * tabSize.x + valueCount] = atoi(&line.at(j))-1;
-									tabHitboxes[i * tabSize.x + valueCount] = true;
-								}
-								else
-								{
-									tabHitboxes[i * tabSize.x + valueCount] = false;
-								}
-								valueCount++;
+								tabTiles[i * tabSize.x + j] = atoi(values.at(j).c_str()) - 1;
+								tabHitboxes[i * tabSize.x + j] = true;
+								//std::cout << atoi(values.at(j).c_str()) << ", ";
+							}
+							else
+							{
+								tabHitboxes[i * tabSize.x + j] = true;
+								//std::cout << "0, ";
 							}
 						}
 						//std::cout << "\n";
@@ -162,17 +160,12 @@ Level* LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 					for (int i = 0; i < tabSize.y; i++)
 					{
 						std::getline(file, line);
-						int valueCount = 0;
-						for (int j = 0; j < line.length(); j++)
+						std::vector<std::string> values = parseLine(line, ',');
+						for (int j = 0; j < tabSize.x; j++)
 						{
-							
-							if (line.at(j) != ',')
+							if (atoi(values.at(j).c_str()) != 0)
 							{
-								if (line.at(j) != '0')
-								{
-									tabTiles[i * tabSize.x + valueCount] = atoi(&line.at(j))-1;
-								}
-								valueCount++;
+								tabTiles[i * tabSize.x + j] = atoi(values.at(j).c_str()) - 1;
 							}
 						}
 					}
@@ -234,7 +227,6 @@ std::vector<std::string> LevelLoader::parseLine(std::string _line, char _char)
 	std::vector<std::string> res;
 	std::string current = "";
 
-	std::cout << _line << "\n";
 	for (int i = 0; i < _line.size(); i++)
 	{
 		if (_line.at(i) != _char)

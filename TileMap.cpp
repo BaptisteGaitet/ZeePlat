@@ -4,6 +4,7 @@ TileMap::TileMap(sf::FloatRect _bounds, sf::Vector2i _size, sf::Vector2i _tileSi
 {
 	solid = false;
 	size = _size;
+	tileSize = _tileSize;
 	sf::Vector2f renderTileSize = sf::Vector2f(_bounds.width / _size.x, _bounds.height / _size.y);
 	for (int i = 0; i < _size.x; i++)
 	{
@@ -57,6 +58,16 @@ void TileMap::separate(Body* _body)
 bool TileMap::isSolid()
 {
 	return solid;
+}
+
+sf::Vector2i TileMap::getSize()
+{
+	return size;
+}
+
+sf::Vector2i TileMap::getTileSize()
+{
+	return tileSize;
 }
 
 TileMap::~TileMap()

@@ -10,6 +10,7 @@ class TileMap
 private:
 	std::vector<Tile> tiles;
 	sf::Vector2i size;
+	sf::Vector2i tileSize;
 	bool solid;
 public:
 	TileMap(sf::FloatRect _bounds, sf::Vector2i _size, sf::Vector2i _tileSize, std::string _path, int* _indexes, bool* _hitboxes);
@@ -17,6 +18,8 @@ public:
 	void draw(sf::RenderWindow* window);
 	void separate(Body* _body);
 	bool isSolid();
+	sf::Vector2i getSize();
+	sf::Vector2i getTileSize();
 
 	~TileMap();
 };

@@ -23,6 +23,8 @@ public:
 	void resume();
 	int getCurrentFrameNumber();
 	bool currentAnimationFinished();
+	std::string getCurrentAnimationId();
+	void resetAnimation(std::string _id);
 
 	~AnimationManager();
 };

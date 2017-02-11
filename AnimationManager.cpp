@@ -45,6 +45,10 @@ void AnimationManager::addAnimation(std::string _id, Animation _animation)
 
 void AnimationManager::play(std::string _id)
 {
+	if (hasAnimation(currentAnimation) && currentAnimation != _id)
+	{
+		animations.at(currentAnimation).reset();
+	}
 	if (hasAnimation(_id))
 	{
 		currentAnimation = _id;
@@ -69,7 +73,7 @@ bool AnimationManager::currentAnimationFinished()
 
 	if (hasAnimation(currentAnimation))
 	{
-		if (animations.at(currentAnimation).finished())
+		if (animations.at(currentAnimation).finished() && !animations.at(currentAnimation).isLooped())
 		{
 			res = true;
 		}
@@ -86,6 +90,19 @@ void AnimationManager::pause()
 void AnimationManager::resume()
 {
 	paused = false;
+}
+
+std::string AnimationManager::getCurrentAnimationId()
+{
+	return currentAnimation;
+}
+
+void AnimationManager::resetAnimation(std::string _id)
+{
+	if (hasAnimation(_id))
+	{
+		animations.at(_id).reset();
+	}
 }
 
 AnimationManager::~AnimationManager()

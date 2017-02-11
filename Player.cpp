@@ -132,8 +132,10 @@ Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(16, 16),
 	animatedImage.play("idleLeft");
 }
 
-void Player::update()
+void Player::update(ParticleManager* _partMngr)
 {
+	//_partMngr->addParticle(Particle(getCenter(), sf::Vector2f(-body.getVelocity().x*1, -body.getVelocity().y*1), 0.2f, 0.9f, 20, sf::Color(100, 200, 100)));
+
 	sf::Vector2f acceleration;
 
 	body.setVelocity(sf::Vector2f(body.getVelocity().x * 0.9, body.getVelocity().y));
@@ -144,6 +146,13 @@ void Player::update()
 		{
 			acceleration.y -= 2.0f;
 			canJump = false;
+			for (int i = 0; i < 10; i++)
+			{
+				sf::Vector2f partVel = sf::Vector2f();
+				partVel.x = -1.0f + ((float)(rand() % 20 + 1) / 10);
+				partVel.y = -((float)(rand() % 20 + 1) / 10);
+				_partMngr->addParticle(Particle(sf::Vector2f(getCenter().x, getCenter().y + 8), partVel, 0.01f, 0.6f, 20 + (rand() % 10 + 1), sf::Color(82, 38, 107)));
+			}
 		}
 	}
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -152,12 +161,24 @@ void Player::update()
 	}
 
 	//Gravity
-		acceleration.y += 0.1f;
+	acceleration.y += 0.1f;
 	if (!body.getHitboxes().at(0)->getContacts().bottom)
 	{
+		onGround = false;
 	}
 	else if (body.getVelocity().y > 0)
 	{
+		if (!onGround)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				sf::Vector2f partVel = sf::Vector2f();
+				partVel.x = -1.0f + ((float)(rand() %20 + 1) / 10);
+				partVel.y = -((float)(rand() % 10 + 1) / 10);
+				_partMngr->addParticle(Particle(sf::Vector2f(getCenter().x, getCenter().y + 8), partVel, 0.04f, 0.8f, 20 + (rand() % 10 + 1), sf::Color(82, 38, 107)));
+			}
+		}
+		onGround = true;
 		body.setVelocity(sf::Vector2f(body.getVelocity().x, 0));
 	}	
 
@@ -165,10 +186,24 @@ void Player::update()
 	{
 		acceleration.x -= 0.1f;
 		facingLeft = true;
+		if (onGround && (rand() % 10 + 1) > 5)
+		{
+			sf::Vector2f partVel = sf::Vector2f();
+			partVel.x = ((float)(rand() % 10 + 1) / 10);
+			partVel.y = -((float)(rand() % 20 + 1) / 10);
+			_partMngr->addParticle(Particle(sf::Vector2f(getCenter().x, getCenter().y + 8), partVel, 0.01f, 0.6f, 10, sf::Color(82, 38, 107)));
+		}
 	}else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		acceleration.x += 0.1f;
 		facingLeft = false;
+		if (onGround && (rand() % 10 + 1) > 5)
+		{
+			sf::Vector2f partVel = sf::Vector2f();
+			partVel.x = -((float)(rand() % 10 + 1) / 10);
+			partVel.y = -((float)(rand() % 20 + 1) / 10);
+			_partMngr->addParticle(Particle(sf::Vector2f(getCenter().x, getCenter().y + 8), partVel, 0.01f, 0.6f, 10, sf::Color(82, 38, 107)));
+		}
 	}
 
 	if (body.getVelocity().x > 2)

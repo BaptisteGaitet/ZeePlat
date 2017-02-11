@@ -15,11 +15,19 @@ Level::Level(TileMap* _backLayer, TileMap* _mainLayer, TileMap* _frontLayer, std
 	background.setFillColor(_backgroundColor);
 }
 
-void Level::update()
+void Level::update(ParticleManager* _partMngr)
 {
 	for (int i = 0; i < entities.size(); i++)
 	{
-		entities.at(i)->update();
+		entities.at(i)->update(_partMngr);
+	}
+
+	if (rand() % 10 + 1 > 8)
+	{
+		sf::Vector2f partPos;
+		partPos.x = rand() % (mainLayer->getSize().x * mainLayer->getTileSize().x);
+		partPos.y = rand() % (mainLayer->getSize().y * mainLayer->getTileSize().y);
+		_partMngr->addParticle(Particle(partPos, sf::Vector2f(0,0), 0.01f, 0.9f, 100 + (rand() % 100 + 1), sf::Color(100, 250, 250)));
 	}
 }
 

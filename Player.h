@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Entity.h"
+#include "Particle.h"
 
 class Player : public Entity
 {
@@ -13,7 +14,7 @@ public:
 	Player();
 	Player(sf::Vector2f _position);
 
-	void update();
+	void update(ParticleManager* _partMngr);
 
 	~Player();
 };

@@ -7,6 +7,7 @@
 #include "Image.h"
 #include "Entity.h"
 #include "WarpZone.h"
+#include "ParticleManager.h"
 
 class Level
 {
@@ -20,7 +21,7 @@ private:
 public:
 	Level(TileMap* _backLayer, TileMap* _mainLayer, TileMap* _frontLayer, std::vector<Entity*> _entities, sf::Color _backgroundColor);
 
-	void update();
+	void update(ParticleManager* _partMngr);
 	void drawBackground(sf::RenderWindow* window);
 	void drawForeground(sf::RenderWindow* window);
 	void separate(Body* _body);

@@ -13,7 +13,7 @@ void GameState::update()
 {
 	player.update(&partMngr);
 	levels.at(currentLevel)->separate(player.getBody());
-	levels.at(currentLevel)->update(&partMngr);
+	levels.at(currentLevel)->update(&partMngr, player.getCenter());
 	partMngr.update();
 
 	WindowManager::getInstance().setTarget(player.getCenter());

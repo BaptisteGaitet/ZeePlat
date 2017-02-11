@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(8, 8), "char.png", 4, 4)
+Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(16, 16), "character.png", 8, 8)
 {
 	facingLeft = false;
 	onGround = false;
@@ -16,12 +16,20 @@ Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(8, 8), "char.png", 4,
 		Frame(1, 8),
 		Frame(2, 8),
 		Frame(3, 8),
-	};
-	std::vector<Frame> runLeft = {
 		Frame(4, 8),
 		Frame(5, 8),
 		Frame(6, 8),
-		Frame(7, 8),
+		Frame(7, 8)
+	};
+	std::vector<Frame> runLeft = {
+		Frame(8, 8),
+		Frame(9, 8),
+		Frame(10, 8),
+		Frame(11, 8),
+		Frame(12, 8),
+		Frame(13, 8),
+		Frame(14, 8),
+		Frame(15, 8)
 	};
 	std::vector<Frame> idleRight = {
 		Frame(8, 16),
@@ -54,7 +62,7 @@ Player::Player() : Entity(sf::Vector2f(0, 0), sf::Vector2f(8, 8), "char.png", 4,
 	animatedImage.play("idleLeft");
 }
 
-Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(8, 8), "char.png", 4,4)
+Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(16, 16), "character.png", 8,8)
 {
 	facingLeft = false;
 	onGround = false;
@@ -62,40 +70,56 @@ Player::Player(sf::Vector2f _position) : Entity(_position, sf::Vector2f(8, 8), "
 
 	body.setPosition(_position);
 
-	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 4, 8), sf::Vector2f(2,0), true, false, true));
-	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 8, 4), sf::Vector2f(0, 2), true, true, false));
+	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 4, 8), sf::Vector2f(6,8), true, false, true));
+	body.addHitbox(Hitbox(sf::FloatRect(0, 0, 8, 4), sf::Vector2f(4,10), true, true, false));
 
 	std::vector<Frame> runRight = {
-		Frame(0, 8),
-		Frame(1, 8),
-		Frame(2, 8),
-		Frame(3, 8),
+		Frame(0, 6),
+		Frame(1, 6),
+		Frame(2, 6),
+		Frame(3, 6),
+		Frame(4, 6),
+		Frame(5, 6),
+		Frame(6, 6),
+		Frame(7, 6)
 	};
 	std::vector<Frame> runLeft = {
-		Frame(4, 8),
-		Frame(5, 8),
-		Frame(6, 8),
-		Frame(7, 8),
+		Frame(8,6),
+		Frame(9, 6),
+		Frame(10, 6),
+		Frame(11, 6),
+		Frame(12, 6),
+		Frame(13, 6),
+		Frame(14, 6),
+		Frame(15, 6)
 	};
 	std::vector<Frame> idleRight= {
-		Frame(8, 16),
-		Frame(9, 16)
+		Frame(16, 6),
+		Frame(17, 6),
+		Frame(18, 6),
+		Frame(19, 6)
 	};
 	std::vector<Frame> idleLeft = {
-		Frame(10, 16),
-		Frame(11, 16)
+		Frame(20, 6),
+		Frame(21, 6),
+		Frame(22, 6),
+		Frame(23, 6)
 	};
 	std::vector<Frame> jumpRight = {
-		Frame(12, 8)
+		Frame(24, 8),
+		Frame(25, 8)
 	};
 	std::vector<Frame> fallRight = {
-		Frame(13, 8)
+		Frame(26, 8),
+		Frame(27, 8)
 	};
 	std::vector<Frame> jumpLeft = {
-		Frame(15, 8)
+		Frame(28, 8),
+		Frame(29, 8)
 	};
 	std::vector<Frame> fallLeft = {
-		Frame(14, 8)
+		Frame(30, 8),
+		Frame(31, 8)
 	};
 	animatedImage.addAnimation("runLeft", Animation(runLeft, true));
 	animatedImage.addAnimation("runRight", Animation(runRight, true));

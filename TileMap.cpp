@@ -70,6 +70,26 @@ sf::Vector2i TileMap::getTileSize()
 	return tileSize;
 }
 
+sf::Vector2f TileMap::getRandomGroundPosition()
+{
+	sf::Vector2f res;
+
+	// Ground tiles ID: 2
+	std::vector<sf::Vector2f> positions;
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		if (tiles.at(i).getIndex() == 18 || tiles.at(i).getIndex() == 34)
+		{
+			positions.push_back(tiles.at(i).getHitbox()->getPosition());
+		}
+	}
+
+	int random = rand() % positions.size();
+	res = positions.at(random);
+
+	return res;
+}
+
 TileMap::~TileMap()
 {
 }

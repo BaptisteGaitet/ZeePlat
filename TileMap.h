@@ -20,6 +20,7 @@ public:
 	bool isSolid();
 	sf::Vector2i getSize();
 	sf::Vector2i getTileSize();
+	sf::Vector2f getRandomGroundPosition();
 
 	~TileMap();
 };

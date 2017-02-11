@@ -19,7 +19,6 @@ std::map<std::string, Level*> LevelLoader::loadLevels()
 					std::vector<std::string> parsedLevel = parseLine(line, '/');
 					res.insert(std::pair<std::string, Level*>(parsedLevel.at(1), loadLevel(parsedLevel.at(1) + ".txt", parsedLevel.at(2) + ".png")));
 					//std::cout << "Added " << parsedLevel.at(1) << "\n";
-					
 					std::vector<WarpZone> warps;
 					std::getline(file, line);
 					while (line.size() > 0 && !file.fail())
@@ -68,8 +67,8 @@ Level* LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 	TileMap* backLayer = nullptr;
 	TileMap* mainLayer = nullptr;
 	TileMap* frontLayer = nullptr;
-	std::vector<Entity*> entities = std::vector<Entity*>();
-	entities.resize(0);
+	std::vector<Animal*> animals = std::vector<Animal*>();
+	animals.resize(0);
 
 	if (file.is_open())
 	{ 
@@ -174,9 +173,25 @@ Level* LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 					{
 						frontLayer = new TileMap(mapBounds, tabSize, tileSize, _tilesetPath, tabTiles, tabHitboxes);
 					}
-					else
+					else if(layerName == "back")
 					{
 						backLayer = new TileMap(mapBounds, tabSize, tileSize, _tilesetPath, tabTiles, tabHitboxes);
+					}else if (layerName == "animal")
+					{
+						for (int i = 0; i < tabSize.x; i++)
+						{
+							for (int j = 0; j < tabSize.y; j++)
+							{
+								if (tabTiles[j * tabSize.x + i] > 0)
+								{
+									Animal* tmp = getAnimal(sf::Vector2f(i, j), tabTiles[j * tabSize.x + i]);
+									if (tmp != nullptr)
+									{
+										animals.push_back(tmp);
+									}
+								}
+							}
+						}
 					}
 
 					// reset tabs
@@ -199,7 +214,7 @@ Level* LevelLoader::loadLevel(std::string _dataPath, std::string _tilesetPath)
 
 	file.close();
 
-	return new Level(backLayer, mainLayer, frontLayer, std::vector<Entity*>(), sf::Color(10, 10, 10));
+	return new Level(backLayer, mainLayer, frontLayer, animals, sf::Color(10, 10, 10));
 }
 
 std::string LevelLoader::getStringAfterChar(std::string _line, char _char)
@@ -240,6 +255,24 @@ std::vector<std::string> LevelLoader::parseLine(std::string _line, char _char)
 		}
 	}
 	res.push_back(current);
+
+	return res;
+}
+
+Animal* LevelLoader::getAnimal(sf::Vector2f _position, int _id)
+{
+	Animal* res = nullptr;
+
+	if (_id == 240)
+	{
+		std::cout << _position.x << ", " << _position.y;
+		res = new AnimalRodent(_position);
+	} 
+	else if (_id == 241)
+	{
+		std::cout << _position.x << ", " << _position.y;
+		res = new AnimalMole(_position);
+	}
 
 	return res;
 }

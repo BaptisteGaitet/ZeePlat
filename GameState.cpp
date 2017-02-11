@@ -1,19 +1,20 @@
 #include "GameState.h"
 
-
 GameState::GameState() : State("game")
 {
 	player = Player(sf::Vector2f(100, 100));
-	std::cout << "start loadLevels\n";
 	levels = LevelLoader::loadLevels();
-	std::cout << "finished loadLevels\n";
 	currentLevel = "room1";
+
+	partMngr = ParticleManager();
 }
 
 void GameState::update()
 {
-	player.update();
+	player.update(&partMngr);
 	levels.at(currentLevel)->separate(player.getBody());
+	levels.at(currentLevel)->update(&partMngr);
+	partMngr.update();
 
 	WindowManager::getInstance().setTarget(player.getCenter());
 
@@ -31,6 +32,7 @@ void GameState::update()
 
 void GameState::draw(sf::RenderWindow* window)
 {
+	partMngr.draw(window);
 	levels.at(currentLevel)->drawBackground(window);
 	player.draw(window);
 	levels.at(currentLevel)->drawForeground(window);

@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="AnimalMole.cpp" />
+    <ClCompile Include="AnimalRodent.cpp" />
     <ClCompile Include="AnimatedImage.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
@@ -40,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animal.h" />
+    <ClInclude Include="AnimalMole.h" />
+    <ClInclude Include="AnimalRodent.h" />
     <ClInclude Include="AnimatedImage.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />

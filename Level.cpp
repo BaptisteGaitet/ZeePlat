@@ -38,6 +38,11 @@ void Level::drawBackground(sf::RenderWindow* window)
 	window->draw(background);
 	backLayer->draw(window);
 	mainLayer->draw(window);
+
+	for (int i = 0; i < animals.size(); i++)
+	{
+		animals.at(i)->draw(window);
+	}
 }
 
 void Level::drawForeground(sf::RenderWindow* window)

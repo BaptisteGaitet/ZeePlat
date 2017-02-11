@@ -17,7 +17,7 @@ Particle::Particle(sf::Vector2f _position, sf::Vector2f _velocity, float _gravit
 	velocity = _velocity;
 	gravity = _gravity;
 	dampening = _dampening;
-	lifeSpan = lifeSpan;
+	lifeSpan = _lifeSpan;
 	lifeTimer = 0;
 	dead = false;
 	color = _color;
@@ -36,15 +36,17 @@ void Particle::update()
 	}
 
 	// Manage position
-	sf::Vector2f currentPosition = shape.getPosition();
-	currentPosition += velocity;
 	velocity.x = dampening * velocity.x;
 	velocity.y = dampening * velocity.y;
 	velocity.y += gravity;
+	sf::Vector2f currentPosition = shape.getPosition();
+	currentPosition.x += velocity.x;
+	currentPosition.y += velocity.y;
+	shape.setPosition(currentPosition);
 
 	// Manage color
 	int alphaFactor = (lifeTimer * 255) / lifeSpan;
-	shape.setFillColor(sf::Color(color.r, color.g, color.b, alphaFactor));
+	shape.setFillColor(sf::Color(color.r, color.g, color.b, 255 - alphaFactor));
 }
 
 void Particle::draw(sf::RenderWindow* window)

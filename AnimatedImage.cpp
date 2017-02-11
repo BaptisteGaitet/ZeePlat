@@ -48,6 +48,16 @@ void AnimatedImage::resume()
 	animMngr.resume();
 }
 
+bool AnimatedImage::isFinished()
+{
+	return animMngr.currentAnimationFinished();
+}
+
+std::string AnimatedImage::getCurrentAnimationId()
+{
+	return animMngr.getCurrentAnimationId();
+}
+
 AnimatedImage::~AnimatedImage()
 {
 }

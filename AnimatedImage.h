@@ -22,6 +22,8 @@ public:
 	void play(std::string _id);
 	void pause();
 	void resume();
+	bool isFinished();
+	std::string getCurrentAnimationId();
 
 	~AnimatedImage();
 };

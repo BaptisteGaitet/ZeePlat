@@ -5,7 +5,7 @@
 #include <string>
 #include "TileMap.h"
 #include "Image.h"
-#include "Entity.h"
+#include "Animal.h"
 #include "WarpZone.h"
 #include "ParticleManager.h"
 
@@ -16,12 +16,12 @@ private:
 	TileMap* backLayer;
 	TileMap* mainLayer;
 	TileMap* frontLayer;
-	std::vector<Entity*> entities;
+	std::vector<Animal*> animals;
 	std::vector<WarpZone> warpZones;
 public:
-	Level(TileMap* _backLayer, TileMap* _mainLayer, TileMap* _frontLayer, std::vector<Entity*> _entities, sf::Color _backgroundColor);
+	Level(TileMap* _backLayer, TileMap* _mainLayer, TileMap* _frontLayer, std::vector<Animal*> _animals, sf::Color _backgroundColor);
 
-	void update(ParticleManager* _partMngr);
+	void update(ParticleManager* _partMngr, sf::Vector2f _playerPosition);
 	void drawBackground(sf::RenderWindow* window);
 	void drawForeground(sf::RenderWindow* window);
 	void separate(Body* _body);

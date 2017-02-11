@@ -18,6 +18,8 @@ public:
 	void update();
 	int getCurrentFrameNumber();
 	bool finished();
+	bool isLooped();
+	void reset();
 
 	~Animation();
 };

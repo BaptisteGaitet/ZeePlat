@@ -44,6 +44,17 @@ bool Animation::finished()
 	return res;
 }
 
+bool Animation::isLooped()
+{
+	return looped;
+}
+
+void Animation::reset()
+{
+	frames.at(currentFrameIndex).reset();
+	currentFrameIndex = 0;
+}
+
 Animation::~Animation()
 {
 }

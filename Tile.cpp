@@ -3,6 +3,7 @@
 
 Tile::Tile(int _index, sf::Vector2f _position, sf::Vector2f _size, sf::Vector2i _tileSize, std::string _path, bool _solid)
 {
+	tileId = _index;
 	image = Image(_position, _size, _path, _tileSize, _index);
 	solid = _solid;
 	if (_solid)
@@ -28,6 +29,11 @@ Hitbox* Tile::getHitbox()
 bool Tile::isSolid()
 {
 	return solid;
+}
+
+int Tile::getIndex()
+{
+	return tileId;
 }
 
 Tile::~Tile()

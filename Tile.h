@@ -10,12 +10,14 @@ private:
 	Image image;
 	Hitbox hitbox;
 	bool solid;
+	int tileId;
 public:
 	Tile(int _index, sf::Vector2f _position, sf::Vector2f _size, sf::Vector2i _tileSize, std::string _path, bool _solid);
 
 	void draw(sf::RenderWindow* window);
 	Hitbox* getHitbox();
 	bool isSolid();
+	int getIndex();
 
 	~Tile();
 };
